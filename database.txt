@@ -1,0 +1,2 @@
+Id: 1 - Nome: Brownie Importado - Tipo: Nozes com avelã - Quantidade: 5 - Preço final unidade: 19,69 - Preço final total: 98,45
+Id: 2 - Nome: Brownie Nacional - Tipo: Castanha do Pará com chocolate - Quantidade: 10 - Preço final unidade: 11,99 - Preço final total: 119,90
