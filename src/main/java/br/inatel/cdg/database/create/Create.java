@@ -14,8 +14,6 @@ import org.json.JSONException;
 
 public class Create extends Brownie implements BrownieInfo {
 
-    String[] indexFields = {"ID: ", "Nome: ", "Preço: ", "Tipo: ", "Quantidade: ", "Preço final unidade: " , "Preço final total: "};
-
     public Create(String name, double price, String type, int quantity){
         super(name, price, type, quantity);
         salvarBrownie();
