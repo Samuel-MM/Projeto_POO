@@ -1,6 +1,7 @@
 package br.inatel.cdg.database.read;
 
 
+import br.inatel.cdg.database.interfaces.BrownieInfo;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -11,15 +12,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 
-public class Read extends Brownie{
+public class Read extends Brownie implements BrownieInfo {
 
     public Read(String nome, double preco, String tipo, int quantity) {
         super(nome, preco, tipo, quantity);
         //TODO Auto-generated constructor stub
     }
     // database of JSON here -------
-    private String database = "../database/data.json";
-    
+    // private String database = "../database/data.json";
 
     public void ReadBrownie() throws ParseException {
 
@@ -40,8 +40,8 @@ public class Read extends Brownie{
             int quantity = (int) jsonObject.get("quantity");
             System.out.println(quantity);
             
-            } catch (IOException error) {
-        error.printStackTrace();
+        } catch (IOException error) {
+                error.printStackTrace();
         }
     }
 

@@ -5,6 +5,7 @@ public abstract class Brownie {
     protected double price;
     protected String type;
     protected int quantity;
+    protected String database = "data.json";
 
     public Brownie(String nome, double preco, String tipo, int quantity){
         this.name = nome;
@@ -16,7 +17,4 @@ public abstract class Brownie {
     public abstract double getFinalPriceUnitary();
 
     public abstract double getFinalPriceTotal();
-
-    public abstract void getInfo();
-
 }

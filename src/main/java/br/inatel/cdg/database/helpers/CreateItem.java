@@ -20,6 +20,7 @@ public class CreateItem {
             if(!brownieValue.contains(",")) {
                 Create criar = new Create(brownieName, Double.parseDouble(brownieValue), brownieType,
                         Integer.parseInt(brownieQuantity));
+                criar.getInfo();
             }
             else {
                 throw new InvalidPriceException("Entrada inválida! Insira o preço separado por .");

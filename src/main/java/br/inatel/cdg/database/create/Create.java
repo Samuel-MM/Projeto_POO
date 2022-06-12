@@ -1,15 +1,20 @@
 package br.inatel.cdg.database.create;
 
 import br.inatel.cdg.database.brownie.Brownie;
-import java.io.IOException;
+
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-public class Create extends Brownie {
+import br.inatel.cdg.database.interfaces.BrownieInfo;
+import org.json.simple.JSONObject;
+import org.json.JSONException;
 
-    String fileName = "database.txt";
+public class Create extends Brownie implements BrownieInfo {
+
+    String[] indexFields = {"ID: ", "Nome: ", "Preço: ", "Tipo: ", "Quantidade: ", "Preço final unidade: " , "Preço final total: "};
 
     public Create(String name, double price, String type, int quantity){
         super(name, price, type, quantity);
@@ -21,42 +26,50 @@ public class Create extends Brownie {
         return price * 0.1 + price;
     }
 
-    public void salvarBrownie(){
-        Path file = Paths.get(fileName);
-        try{
-            //Id - Nome - Tipo - Quantidade - Preço Unitário - Preço Final Total
-
-            String brownieTexto =
-                    "Id: " + (Files.lines(file).count() + 1) +
-                            " - Nome: " + name +
-                            " - Tipo: " + type +
-                            " - Quantidade: " + quantity +
-                            " - Preço final unidade: " + String.format("%.2f", getFinalPriceUnitary()) +
-                            " - Preço final total: " + String.format("%.2f", getFinalPriceTotal());
-
-            //If file is empty write the first line
+    public void salvarBrownie() {
+        JSONObject json = new JSONObject();
+        Path file = Paths.get(database);
+        try {
+            String[] brownieData = {
+                    String.valueOf(Files.lines(file).count() + 1),
+                    name,
+                    String.valueOf(price),
+                    type,
+                    String.valueOf(quantity),
+                    String.format("%.2f", getFinalPriceUnitary()),
+                    String.format("%.2f", getFinalPriceTotal())
+            };
+            for(int i = 0; i <= 6; i++){
+                json.put(indexFields[i], brownieData[i]);
+            }
+        } catch (JSONException | IOException e) {
+            e.printStackTrace();
+        }
+        try {
             if(Files.lines(file).findAny().isEmpty()){
-                Files.writeString(file, brownieTexto);
+                Files.writeString(file, json.toString());
             }
             //If there's content append the new line to te end of the file
             else {
-                String newLine = System.getProperty("line.separator") + brownieTexto;
+                String newLine = System.getProperty("line.separator") + json;
                 Files.write(file, newLine.getBytes(), StandardOpenOption.APPEND, StandardOpenOption.CREATE);
             }
-            getInfo();
-        } catch (IOException e1) {
-            e1.printStackTrace();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
+    // polimorfismo
+    @Override
     public double getFinalPriceTotal(){
         return getFinalPriceUnitary() * quantity;
     }
-    
-    // polimorfismo
+
     @Override
     public void getInfo(){
-        System.out.println("O seu brownie foi criado: " + name + " - " + type + " - R$" +
+        System.out.println("O seu brownie será criado com os seguintes dados: " + name + " - " + type + " - R$" +
                 String.format("%.2f", price) + " - " + quantity);
     }
 
