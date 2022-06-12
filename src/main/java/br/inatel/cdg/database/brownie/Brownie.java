@@ -12,7 +12,7 @@ public abstract class Brownie {
         this.type = tipo;
         this.quantity = quantity;
     }
-
+    // mostra preco funcão somente para os extends 
     public abstract double getFinalPriceUnitary();
 
     public abstract double getFinalPriceTotal();
