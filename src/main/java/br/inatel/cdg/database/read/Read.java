@@ -18,8 +18,7 @@ public class Read extends Brownie implements BrownieInfo {
         super(nome, preco, tipo, quantity);
         //TODO Auto-generated constructor stub
     }
-    // database of JSON here -------
-    // private String database = "../database/data.json";
+    private String database = "../database/data.json";
 
     public void ReadBrownie() throws ParseException {
 
