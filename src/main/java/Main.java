@@ -2,7 +2,7 @@ import br.inatel.cdg.database.delete.Delete;
 import br.inatel.cdg.database.helpers.CreateItem;
 import br.inatel.cdg.database.read.Read;
 import br.inatel.cdg.database.update.Update;
-import br.inatel.cdg.database.delete.Delete;
+
 import java.util.Scanner;
 
 public class Main {
@@ -20,19 +20,27 @@ public class Main {
         switch (userInput.toUpperCase()){
             case "C":
                 CreateItem createItem = new CreateItem();
-                createItem.CreateBrownie();
+                createItem.createBrownie();
                 break;
             case "R":
                 Read readItem = new Read();
-                readItem.ReadBrownie();
+                readItem.readBrownie();
 
                 break;
             case "U":
                 Update updateItem = new Update();
+                Scanner entradaUpdate = new Scanner(System.in);
+                System.out.println("Entre com o nome do produto a ser editado");
+                updateItem.selectItem(entradaUpdate.nextLine());
+
 
                 break;
             case "D":
-                Delete DeleteItem = new Delete();
+                System.out.println("Entre com o nome do brownie a ser deletado");
+                Scanner entrada = new Scanner(System.in);
+
+                Delete deleteItem = new Delete();
+                deleteItem.deleteBrownie(entrada.nextLine());
                 break;
         }
 
