@@ -2,6 +2,9 @@ package br.inatel.cdg.database.update;
 
 import br.inatel.cdg.database.brownie.Brownie;
 import br.inatel.cdg.database.create.Create;
+import br.inatel.cdg.database.exceptions.InvalidPriceException;
+import br.inatel.cdg.database.exceptions.ProductDoesNotExistException;
+import br.inatel.cdg.database.interfaces.ManipulateData;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -12,11 +15,12 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Update extends Brownie {
+public class Update extends Brownie implements ManipulateData {
 
     boolean brownieExists = false;
     Scanner entradaUpdate = new Scanner(System.in);
 
+    @Override
     public void selectItem(String brownieName){
 
         JSONParser jsonParser = new JSONParser();
@@ -28,13 +32,19 @@ public class Update extends Brownie {
 
             JSONArray brownieList = (JSONArray) obj;
 
-            for (Object brownie : brownieList) {
-                brownieExists = findItem((JSONObject) brownie, brownieName);
-                if (brownieExists) {
-                    System.out.println("Entre com o parâmetro a ser editado");
-                    updateBrownieInfo((JSONObject) brownie, entradaUpdate.nextLine());
-                    break;
+            try {
+                for (int i = 0; i < brownieList.size(); i++) {
+                    brownieExists = findItem((JSONObject) brownieList.get(i), brownieName);
+                    if (brownieExists) {
+                        System.out.println("Entre com o parâmetro a ser editado");
+                        updateBrownieInfo((JSONObject) brownieList.get(i), entradaUpdate.nextLine());
+                        break;
+                    } else if (i == brownieList.size() - 1) {
+                        throw new ProductDoesNotExistException("Este produto não existe no banco de dados!");
+                    }
                 }
+            } catch (ProductDoesNotExistException e){
+                System.out.println(e.getMessage());
             }
             Create create = new Create();
             create.writeFile(brownieList);
@@ -45,7 +55,8 @@ public class Update extends Brownie {
         }
     }
 
-    private boolean findItem(JSONObject brownie, String brownieName) {
+    @Override
+    public boolean findItem(JSONObject brownie, String brownieName) {
         return Objects.equals(brownie.get("Nome"), brownieName);
     }
 

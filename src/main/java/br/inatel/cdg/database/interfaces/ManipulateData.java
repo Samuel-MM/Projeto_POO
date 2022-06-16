@@ -1,12 +1,10 @@
 package br.inatel.cdg.database.interfaces;
 
-import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 public interface ManipulateData {
 
-    void putItem();
+    void selectItem(String brownieName);
 
-    void fileExistPutItem();
-
-    void writeFile(JSONArray brownieArray);
+    boolean findItem(JSONObject brownie, String brownieName);
 }

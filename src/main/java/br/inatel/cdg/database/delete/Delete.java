@@ -2,6 +2,7 @@ package br.inatel.cdg.database.delete;
 
 import br.inatel.cdg.database.brownie.Brownie;
 import br.inatel.cdg.database.create.Create;
+import br.inatel.cdg.database.interfaces.ManipulateData;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -11,12 +12,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Objects;
 
-public class Delete extends Brownie {
+public class Delete extends Brownie implements ManipulateData {
 
     int index = 0;
     boolean brownieExists = false;
 
-    public void deleteBrownie(String brownieName){
+    @Override
+    public void selectItem(String brownieName){
 
         JSONParser jsonParser = new JSONParser();
 
@@ -26,8 +28,8 @@ public class Delete extends Brownie {
 
             JSONArray brownieList = (JSONArray) obj;
 
-            for(int i = 0; i < brownieList.size(); i++){
-                brownieExists = findItem((JSONObject) brownieList.get(i), brownieName);
+            for (Object brownie : brownieList) {
+                brownieExists = findItem((JSONObject) brownie, brownieName);
                 if(brownieExists){
                     brownieList.remove(index);
                     break;
@@ -43,7 +45,7 @@ public class Delete extends Brownie {
         }
     }
 
-    private boolean findItem(JSONObject brownie, String brownieName) {
+    public boolean findItem(JSONObject brownie, String brownieName) {
         return Objects.equals(brownie.get("Nome"), brownieName);
     }
 
