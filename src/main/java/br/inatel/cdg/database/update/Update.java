@@ -67,6 +67,7 @@ public class Update extends Brownie implements ManipulateData {
         else {
             brownie.put(parameter, entradaUpdate.nextLine());
         }
+        getInfo();
     }
 
 
@@ -81,7 +82,7 @@ public class Update extends Brownie implements ManipulateData {
     }
 
     public void getInfo(){
-        System.out.println("Você tem certeza que deseja excluir o seguinte produto: " + "-" + "?");
+        System.out.println("O item foi atualizado com sucesso!");
     }
 
     private void updateQuantity(JSONObject brownie, String parameter){
