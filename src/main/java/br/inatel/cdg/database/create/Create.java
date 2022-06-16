@@ -69,7 +69,10 @@ public class Create extends Brownie implements ManipulateData {
         }
     }
 
+<<<<<<< Updated upstream
     @Override
+=======
+>>>>>>> Stashed changes
     public  void fileExistPutItem(){
         JSONParser jsonParser = new JSONParser();
         JSONObject brownieInfo = new JSONObject();
@@ -94,6 +97,7 @@ public class Create extends Brownie implements ManipulateData {
 
             jsonArray.add(brownieInfo);
             //System.out.println(jsonArray);
+<<<<<<< Updated upstream
 
             try (FileWriter file = new FileWriter(database)) {
                 file.write(jsonArray.toJSONString());
@@ -102,9 +106,23 @@ public class Create extends Brownie implements ManipulateData {
                 e.printStackTrace();
             }
 
+=======
+
+            try (FileWriter file = new FileWriter(database)) {
+                file.write(jsonArray.toJSONString());
+                file.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+>>>>>>> Stashed changes
         } catch (ParseException | IOException e) {
             e.printStackTrace();
         }
     }
 
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes
