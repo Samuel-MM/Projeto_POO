@@ -4,13 +4,12 @@ import br.inatel.cdg.database.brownie.Brownie;
 
 import java.io.*;
 
-import br.inatel.cdg.database.interfaces.ManipulateData;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class Create extends Brownie implements ManipulateData {
+public class Create extends Brownie {
 
     public Create(String name, double price, String type, int quantity) {
         this.name = name;
@@ -50,13 +49,12 @@ public class Create extends Brownie implements ManipulateData {
                 String.format("%.2f", price) + " - " + quantity);
     }
 
-    @Override
     public void putItem() {
         JSONObject brownieInfo = new JSONObject();
         String[] brownieData = {
                 "1",
                 name,
-                String.valueOf(price),
+                String.valueOf(price).replace(".", ","),
                 type,
                 String.valueOf(quantity),
                 String.format("%.2f", getFinalPriceUnitary()),
@@ -71,7 +69,6 @@ public class Create extends Brownie implements ManipulateData {
         writeFile(brownieArray);
     }
 
-    @Override
     public void fileExistPutItem() {
         JSONParser jsonParser = new JSONParser();
         JSONObject brownieInfo = new JSONObject();
@@ -100,7 +97,6 @@ public class Create extends Brownie implements ManipulateData {
         }
     }
 
-    @Override
     public void writeFile(JSONArray brownieArray){
 
         try (FileWriter file = new FileWriter(database)) {
