@@ -12,20 +12,20 @@ import org.json.simple.parser.ParseException;
 
 public class Create extends Brownie implements ManipulateData {
 
-    public Create(String name, double price, String type, int quantity){
+    public Create(String name, double price, String type, int quantity) {
         super(name, price, type, quantity);
         saveItem();
     }
 
     @Override
-    public double getFinalPriceUnitary(){
+    public double getFinalPriceUnitary() {
         return price * 0.1 + price;
     }
 
-    public void saveItem(){
+    public void saveItem() {
 
         File f = new File(database);
-        if(!f.exists())
+        if (!f.exists())
             putItem();
         else
             fileExistPutItem();
@@ -33,18 +33,18 @@ public class Create extends Brownie implements ManipulateData {
 
     // polimorfismo
     @Override
-    public double getFinalPriceTotal(){
+    public double getFinalPriceTotal() {
         return getFinalPriceUnitary() * quantity;
     }
 
     @Override
-    public void getInfo(){
+    public void getInfo() {
         System.out.println("O seu brownie será criado com os seguintes dados: " + name + " - " + type + " - R$" +
                 String.format("%.2f", price) + " - " + quantity);
     }
 
     @Override
-    public void putItem(){
+    public void putItem() {
         JSONObject brownieInfo = new JSONObject();
         String[] brownieData = {
                 "1",
@@ -55,7 +55,7 @@ public class Create extends Brownie implements ManipulateData {
                 String.format("%.2f", getFinalPriceUnitary()),
                 String.format("%.2f", getFinalPriceTotal())
         };
-        for(int i = 0; i <= 6; i++){
+        for (int i = 0; i <= 6; i++) {
             brownieInfo.put(indexFields[i], brownieData[i]);
         }
         JSONArray userList = new JSONArray();
@@ -69,16 +69,12 @@ public class Create extends Brownie implements ManipulateData {
         }
     }
 
-<<<<<<< Updated upstream
-    @Override
-=======
->>>>>>> Stashed changes
-    public  void fileExistPutItem(){
+    public void fileExistPutItem() {
         JSONParser jsonParser = new JSONParser();
         JSONObject brownieInfo = new JSONObject();
         try {
             Object obj = jsonParser.parse(new FileReader(database));
-            JSONArray jsonArray = (JSONArray)obj;
+            JSONArray jsonArray = (JSONArray) obj;
 
             // System.out.println(jsonArray);
 
@@ -91,38 +87,15 @@ public class Create extends Brownie implements ManipulateData {
                     String.format("%.2f", getFinalPriceUnitary()),
                     String.format("%.2f", getFinalPriceTotal())
             };
-            for(int i = 0; i <= 6; i++){
+            for (int i = 0; i <= 6; i++) {
                 brownieInfo.put(indexFields[i], brownieData[i]);
             }
 
             jsonArray.add(brownieInfo);
             //System.out.println(jsonArray);
-<<<<<<< Updated upstream
 
-            try (FileWriter file = new FileWriter(database)) {
-                file.write(jsonArray.toJSONString());
-                file.flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-=======
-
-            try (FileWriter file = new FileWriter(database)) {
-                file.write(jsonArray.toJSONString());
-                file.flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
->>>>>>> Stashed changes
         } catch (ParseException | IOException e) {
             e.printStackTrace();
         }
     }
-
-<<<<<<< Updated upstream
 }
-=======
-}
->>>>>>> Stashed changes
