@@ -23,7 +23,8 @@ public class Main {
                 createItem.CreateBrownie();
                 break;
             case "R":
-                Read readItem = new Read(userInput, 0, userInput, 0);
+                Read readItem = new Read();
+                readItem.ReadBrownie();
 
                 break;
             case "U":
