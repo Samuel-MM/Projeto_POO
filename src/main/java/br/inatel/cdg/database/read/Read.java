@@ -13,7 +13,7 @@ import org.json.simple.parser.ParseException;
 
 public class Read extends Brownie {
 
-    public void ReadBrownie(){
+    public void readBrownie(){
 
         JSONParser jsonParser = new JSONParser();
 
@@ -22,7 +22,9 @@ public class Read extends Brownie {
             Object obj = jsonParser.parse(reader);
 
             JSONArray brownieList = (JSONArray) obj;
-            System.out.println(brownieList.size());
+
+            getInfo();
+
             brownieList.forEach(brownie -> showBrownieInfo((JSONObject) brownie));
 
         } catch (ParseException | IOException e) {
@@ -41,7 +43,6 @@ public class Read extends Brownie {
             System.out.print(item + ": " + info + " - ");
         }
         System.out.println();
-
     }
 
     @Override
@@ -56,6 +57,6 @@ public class Read extends Brownie {
 
     @Override
     public void getInfo() {
-
+        System.out.println("Aqui está sua lista com todos os produtos: ");
     }
 }

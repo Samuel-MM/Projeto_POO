@@ -20,6 +20,10 @@ public class Create extends Brownie implements ManipulateData {
         saveItem();
     }
 
+    public Create() {
+        saveItem();
+    }
+
     @Override
     public double getFinalPriceUnitary() {
         return price * 0.1 + price;

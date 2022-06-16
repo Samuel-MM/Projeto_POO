@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class CreateItem {
 
-    public void CreateBrownie(){
+    public void createBrownie(){
 
         Scanner scanner = new Scanner(System.in);
 
