@@ -1,7 +1,7 @@
 package br.inatel.cdg.database.read;
 
 
-import br.inatel.cdg.database.interfaces.BrownieInfo;
+import br.inatel.cdg.database.interfaces.ManipulateData;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -12,7 +12,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 
-public class Read extends Brownie implements BrownieInfo {
+public class Read extends Brownie {
 
     public Read(String nome, double preco, String tipo, int quantity) {
         super(nome, preco, tipo, quantity);

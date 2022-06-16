@@ -14,7 +14,7 @@ public class Main {
         System.out.println("Selecione a operação: 'R' para Ler um item");
         System.out.println("Selecione a operação: 'U' para Atualizar um item");
         System.out.println("Selecione a operação: 'D' para Deletar um item");
-        
+
         String userInput = scanner.next();
         switch (userInput){
             case "C":
@@ -23,11 +23,11 @@ public class Main {
                 break;
             case "R":
                 Read readItem = new Read(userInput, 0, userInput, 0);
-                
+
                 break;
             case "U":
                 Update updateItem = new Update();
-                
+
                 break;
             case "D":
                 Delete DeleteItem = new Delete();

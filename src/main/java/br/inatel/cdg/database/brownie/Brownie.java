@@ -19,4 +19,6 @@ public abstract class Brownie {
     public abstract double getFinalPriceUnitary();
 
     public abstract double getFinalPriceTotal();
+
+    public abstract void getInfo();
 }
