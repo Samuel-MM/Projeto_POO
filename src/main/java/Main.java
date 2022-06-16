@@ -3,6 +3,7 @@ import br.inatel.cdg.database.helpers.CreateItem;
 import br.inatel.cdg.database.read.Read;
 import br.inatel.cdg.database.update.Update;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -17,31 +18,33 @@ public class Main {
         System.out.println("Selecione a operação: 'D' para Deletar um item");
 
         String userInput = scanner.next();
-        switch (userInput.toUpperCase()){
-            case "C":
-                CreateItem createItem = new CreateItem();
-                createItem.createBrownie();
-                break;
-            case "R":
-                Read readItem = new Read();
-                readItem.readBrownie();
 
-                break;
-            case "U":
-                Update updateItem = new Update();
-                Scanner entradaUpdate = new Scanner(System.in);
-                System.out.println("Entre com o nome do produto a ser editado");
-                updateItem.selectItem(entradaUpdate.nextLine());
+        while(!Objects.equals(userInput, "E")) {
+            switch (userInput.toUpperCase()) {
+                case "C":
+                    CreateItem createItem = new CreateItem();
+                    createItem.createBrownie();
+                    break;
+                case "R":
+                    Read readItem = new Read();
+                    readItem.readBrownie();
+                    break;
+                case "U":
+                    Update updateItem = new Update();
+                    Scanner entradaUpdate = new Scanner(System.in);
+                    System.out.println("Entre com o nome do produto a ser editado");
+                    updateItem.selectItem(entradaUpdate.nextLine());
+                    break;
+                case "D":
+                    System.out.println("Entre com o nome do brownie a ser deletado");
+                    Scanner entrada = new Scanner(System.in);
 
-
-                break;
-            case "D":
-                System.out.println("Entre com o nome do brownie a ser deletado");
-                Scanner entrada = new Scanner(System.in);
-
-                Delete deleteItem = new Delete();
-                deleteItem.deleteBrownie(entrada.nextLine());
-                break;
+                    Delete deleteItem = new Delete();
+                    deleteItem.deleteBrownie(entrada.nextLine());
+                    break;
+            }
+            System.out.println("Deseja realizar outra operação? Caso queira sair digite 'E'");
+            userInput = scanner.next();
         }
 
     }
