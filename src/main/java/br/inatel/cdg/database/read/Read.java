@@ -1,67 +1,62 @@
 package br.inatel.cdg.database.read;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Objects;
 
-import br.inatel.cdg.database.interfaces.BrownieInfo;
+import br.inatel.cdg.database.brownie.Brownie;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import br.inatel.cdg.database.brownie.Brownie;
+public class Read extends Brownie {
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+    public void readBrownie(){
 
-public class Read extends Brownie implements BrownieInfo {
+        JSONParser jsonParser = new JSONParser();
 
-    public Read(String nome, double preco, String tipo, int quantity) {
-        super(nome, preco, tipo, quantity);
-        //TODO Auto-generated constructor stub
-    }
-    private String database = "../database/data.json";
+        try (FileReader reader = new FileReader(database)) {
 
-    public void ReadBrownie() throws ParseException {
+            Object obj = jsonParser.parse(reader);
 
-        JSONParser parser = new JSONParser();
-        try (Reader reader = new FileReader(database)) {
-            JSONObject jsonObject = (JSONObject) parser.parse(reader);
-            System.out.println(jsonObject);
+            JSONArray brownieList = (JSONArray) obj;
 
-            String name = (String) jsonObject.get("name");
-            System.out.println(name);
+            getInfo();
 
-            double price = (double) jsonObject.get("price");
-            System.out.println(price);
+            brownieList.forEach(brownie -> showBrownieInfo((JSONObject) brownie));
 
-            String type = (String) jsonObject.get("type");
-            System.out.println(type);
-            
-            int quantity = (int) jsonObject.get("quantity");
-            System.out.println(quantity);
-            
-        } catch (IOException error) {
-                error.printStackTrace();
+        } catch (ParseException | IOException e) {
+            e.printStackTrace();
         }
     }
 
+    private void showBrownieInfo(JSONObject brownie) {
+
+        for(String item : indexFields){
+            String info = (String) brownie.get(item);
+            if(Objects.equals(item, "Preço final total")){
+                System.out.print(item + ": " + info );
+                break;
+            }
+            System.out.print(item + ": " + info + " - ");
+        }
+        System.out.println();
+    }
 
     @Override
     public double getFinalPriceUnitary() {
-        // TODO Auto-generated method stub
         return 0;
     }
-
 
     @Override
     public double getFinalPriceTotal() {
-        // TODO Auto-generated method stub
         return 0;
     }
 
-
     @Override
     public void getInfo() {
-        // TODO Auto-generated method stub
-        
+        System.out.println("Aqui está sua lista com todos os produtos: ");
     }
 }
