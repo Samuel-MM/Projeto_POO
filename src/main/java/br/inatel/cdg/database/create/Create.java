@@ -27,60 +27,30 @@ public class Create extends Brownie implements ManipulateData {
     }
 
     @Override
-    public double getFinalPriceUnitary() {
-        return price * 0.1 + price;
-    }
-
-    // polimorfismo
-    @Override
-    public double getFinalPriceTotal() {
-        return getFinalPriceUnitary() * quantity;
-    }
-
-    @Override
     public void getInfo() {
         System.out.println("O seu brownie será criado com os seguintes dados: " + name + " - " + type + " - R$" +
                 String.format("%.2f", price) + " - " + quantity);
     }
 
-    public void putItem() {
+    private void putItem() {
         JSONObject brownieInfo = new JSONObject();
-        String[] brownieData = {
-                name,
-                String.valueOf(price).replace(".", ","),
-                type,
-                String.valueOf(quantity),
-                String.format("%.2f", getFinalPriceUnitary()),
-                String.format("%.2f", getFinalPriceTotal())
-        };
-        for (int i = 0; i < indexFields.length; i++) {
-            brownieInfo.put(indexFields[i], brownieData[i]);
-        }
+
+        insertItemsJson(brownieInfo);
+
         JSONArray brownieArray = new JSONArray();
         brownieArray.add(brownieInfo);
 
         writeFile(brownieArray);
     }
 
-    public void fileExistPutItem() {
+    private void fileExistPutItem() {
         JSONParser jsonParser = new JSONParser();
         JSONObject brownieInfo = new JSONObject();
         try {
             Object obj = jsonParser.parse(new FileReader(database));
             JSONArray brownieArray = (JSONArray) obj;
 
-
-            String[] brownieData = {
-                    name,
-                    String.valueOf(price).replace(".", ","),
-                    type,
-                    String.valueOf(quantity),
-                    String.format("%.2f", getFinalPriceUnitary()),
-                    String.format("%.2f", getFinalPriceTotal())
-            };
-            for (int i = 0; i < indexFields.length; i++) {
-                brownieInfo.put(indexFields[i], brownieData[i]);
-            }
+            insertItemsJson(brownieInfo);
 
             brownieArray.add(brownieInfo);
             writeFile(brownieArray);
@@ -140,5 +110,30 @@ public class Create extends Brownie implements ManipulateData {
     @Override
     public boolean findItem(JSONObject brownie, String brownieName) {
         return Objects.equals(brownie.get("Nome"), brownieName);
+    }
+
+    private void insertItemsJson(JSONObject brownieInfo){
+        String[] brownieData = {
+                name,
+                String.valueOf(price).replace(".", ","),
+                type,
+                String.valueOf(quantity),
+                String.format("%.2f", getFinalPriceUnitary()),
+                String.format("%.2f", getFinalPriceTotal())
+        };
+        for (int i = 0; i < indexFields.length; i++) {
+            brownieInfo.put(indexFields[i], brownieData[i]);
+        }
+    }
+
+    @Override
+    public double getFinalPriceUnitary() {
+        return price * 0.1 + price;
+    }
+
+    // polimorfismo
+    @Override
+    public double getFinalPriceTotal() {
+        return getFinalPriceUnitary() * quantity;
     }
 }
