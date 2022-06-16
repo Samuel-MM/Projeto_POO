@@ -40,7 +40,7 @@ public class Main {
                     Scanner entrada = new Scanner(System.in);
 
                     Delete deleteItem = new Delete();
-                    deleteItem.deleteBrownie(entrada.nextLine());
+                    deleteItem.selectItem(entrada.nextLine());
                     break;
             }
             System.out.println("Deseja realizar outra operação? Caso queira sair digite 'E'");
