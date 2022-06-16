@@ -2,6 +2,7 @@ package br.inatel.cdg.database.delete;
 
 import br.inatel.cdg.database.brownie.Brownie;
 import br.inatel.cdg.database.create.Create;
+import br.inatel.cdg.database.exceptions.ProductDoesNotExistException;
 import br.inatel.cdg.database.interfaces.ManipulateData;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -27,17 +28,22 @@ public class Delete extends Brownie implements ManipulateData {
             Object obj = jsonParser.parse(reader);
 
             JSONArray brownieList = (JSONArray) obj;
-
-            for (Object brownie : brownieList) {
-                brownieExists = findItem((JSONObject) brownie, brownieName);
-                if(brownieExists){
-                    brownieList.remove(index);
-                    break;
+            try {
+                for (int i = 0; i < brownieList.size(); i++) {
+                    brownieExists = findItem((JSONObject) brownieList.get(i), brownieName);
+                    if (brownieExists) {
+                        brownieList.remove(index);
+                        break;
+                    } else if(i == brownieList.size() - 1){
+                        throw new ProductDoesNotExistException("Este produto não existe no banco de dados!");
+                    }
+                    index++;
                 }
-                index++;
+            } catch (ProductDoesNotExistException e) {
+                System.out.println(e.getMessage());
             }
             Create create = new Create();
-            create.writeFile(brownieList);
+                create.writeFile(brownieList);
 
 
         } catch (ParseException | IOException e) {
