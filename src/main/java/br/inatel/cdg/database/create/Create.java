@@ -13,7 +13,10 @@ import org.json.simple.parser.ParseException;
 public class Create extends Brownie implements ManipulateData {
 
     public Create(String name, double price, String type, int quantity) {
-        super(name, price, type, quantity);
+        this.name = name;
+        this.price = price;
+        this.type = type;
+        this.quantity = quantity;
         saveItem();
     }
 
@@ -58,25 +61,20 @@ public class Create extends Brownie implements ManipulateData {
         for (int i = 0; i <= 6; i++) {
             brownieInfo.put(indexFields[i], brownieData[i]);
         }
-        JSONArray userList = new JSONArray();
-        userList.add(brownieInfo);
+        JSONArray brownieArray = new JSONArray();
+        brownieArray.add(brownieInfo);
 
-        try (FileWriter file = new FileWriter(database)) {
-            file.write(userList.toJSONString());
-            file.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        writeFile(brownieArray);
     }
 
+    @Override
     public void fileExistPutItem() {
         JSONParser jsonParser = new JSONParser();
         JSONObject brownieInfo = new JSONObject();
         try {
             Object obj = jsonParser.parse(new FileReader(database));
-            JSONArray jsonArray = (JSONArray) obj;
+            JSONArray brownieArray = (JSONArray) obj;
 
-            // System.out.println(jsonArray);
 
             String[] brownieData = {
                     "1",
@@ -91,10 +89,20 @@ public class Create extends Brownie implements ManipulateData {
                 brownieInfo.put(indexFields[i], brownieData[i]);
             }
 
-            jsonArray.add(brownieInfo);
-            //System.out.println(jsonArray);
-
+            brownieArray.add(brownieInfo);
+            writeFile(brownieArray);
         } catch (ParseException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void writeFile(JSONArray brownieArray){
+
+        try (FileWriter file = new FileWriter(database)) {
+            file.write(brownieArray.toJSONString());
+            file.flush();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

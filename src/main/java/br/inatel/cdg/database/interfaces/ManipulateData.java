@@ -1,8 +1,12 @@
 package br.inatel.cdg.database.interfaces;
 
+import org.json.simple.JSONArray;
+
 public interface ManipulateData {
 
-    public abstract void putItem();
+    void putItem();
 
-    public abstract void fileExistPutItem();
+    void fileExistPutItem();
+
+    void writeFile(JSONArray brownieArray);
 }
