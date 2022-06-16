@@ -15,9 +15,6 @@ import java.util.Objects;
 
 public class Delete extends Brownie implements ManipulateData {
 
-    int index = 0;
-    boolean brownieExists = false;
-
     @Override
     public void selectItem(String brownieName){
 
@@ -32,18 +29,17 @@ public class Delete extends Brownie implements ManipulateData {
                 for (int i = 0; i < brownieList.size(); i++) {
                     brownieExists = findItem((JSONObject) brownieList.get(i), brownieName);
                     if (brownieExists) {
-                        brownieList.remove(index);
+                        brownieList.remove(i);
                         break;
                     } else if(i == brownieList.size() - 1){
                         throw new ProductDoesNotExistException("Este produto não existe no banco de dados!");
                     }
-                    index++;
                 }
             } catch (ProductDoesNotExistException e) {
                 System.out.println(e.getMessage());
             }
             Create create = new Create();
-                create.writeFile(brownieList);
+            create.writeFile(brownieList);
 
 
         } catch (ParseException | IOException e) {

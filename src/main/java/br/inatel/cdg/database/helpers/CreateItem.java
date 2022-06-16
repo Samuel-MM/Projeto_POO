@@ -13,16 +13,14 @@ public class CreateItem {
 
         try {
             System.out.println("Entre com as informações do brownie: Nome, preço, tipo, quantidade" +
-                    " separando cada uma por espaço");
+                    " separando cada uma por enter");
             String brownieName = scanner.nextLine();
             String brownieValue = scanner.nextLine();
             String brownieType = scanner.nextLine();
             String brownieQuantity = scanner.nextLine();
-            System.out.println(brownieValue);
             if(!Objects.equals(brownieValue, "0")) {
-                Create criar = new Create(brownieName, Double.parseDouble(brownieValue), brownieType,
-                        Integer.parseInt(brownieQuantity));
-                criar.getInfo();
+                new Create(brownieName, Double.parseDouble(brownieValue.replace(",", ".")), brownieType,
+                        Integer.parseInt(brownieQuantity));;
             }
             else {
                 throw new InvalidPriceException("O preço do produto não pode ser 0");
