@@ -20,7 +20,7 @@ public class CreateItem {
             String brownieQuantity = scanner.nextLine();
             if(!Objects.equals(brownieValue, "0")) {
                 new Create(brownieName, Double.parseDouble(brownieValue.replace(",", ".")), brownieType,
-                        Integer.parseInt(brownieQuantity));;
+                        Integer.parseInt(brownieQuantity));
             }
             else {
                 throw new InvalidPriceException("O preço do produto não pode ser 0");
@@ -28,6 +28,5 @@ public class CreateItem {
         } catch (InvalidPriceException e){
             System.out.println(e.getMessage());
         }
-        scanner.close();
     }
 }
