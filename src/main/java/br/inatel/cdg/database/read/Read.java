@@ -1,6 +1,5 @@
 package br.inatel.cdg.database.read;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Objects;
@@ -16,7 +15,7 @@ public class Read extends Brownie {
     public void readBrownie(){
 
         JSONParser jsonParser = new JSONParser();
-        // trycatch para evitar quebra no codigo caso aja erros
+        // trycatch para evitar quebra no codigo caso haja erros
         try (FileReader reader = new FileReader(database)) {
 
             Object obj = jsonParser.parse(reader);

@@ -19,5 +19,6 @@ public abstract class Brownie {
 
     public abstract double getFinalPriceTotal();
 
+    // mensagem de sucesso para as funções do CRUD
     public abstract void getInfo();
 }
