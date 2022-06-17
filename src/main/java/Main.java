@@ -18,7 +18,8 @@ public class Main {
         System.out.println("Selecione a operação: 'D' para Deletar um item");
 
         String userInput = scanner.next();
-        
+
+        //Loop for menu of options - user interaction
         while(!Objects.equals(userInput, "E")) {
             switch (userInput.toUpperCase()) {
                 case "C":

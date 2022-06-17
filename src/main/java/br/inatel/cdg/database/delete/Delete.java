@@ -19,7 +19,7 @@ public class Delete extends Brownie implements ManipulateData {
     public void selectItem(String brownieName){
 
         JSONParser jsonParser = new JSONParser();
-        // trycatch para evitar quebra no codigo caso aja erros
+        // trycatch para evitar quebra no codigo caso haja erros
         try (FileReader reader = new FileReader(database)) {
 
             Object obj = jsonParser.parse(reader);
@@ -63,6 +63,6 @@ public class Delete extends Brownie implements ManipulateData {
     }
 
     public void getInfo(){
-        System.out.println("Você deletou  com sucesso!");
+        System.out.println("Você deletou o item com sucesso!");
     }
 }

@@ -19,7 +19,7 @@ public class Update extends Brownie implements ManipulateData {
     public void selectItem(String brownieName){
 
         JSONParser jsonParser = new JSONParser();
-        // trycatch para evitar quebra no codigo caso aja erros
+        // trycatch para evitar quebra no codigo caso haja erros
         try (FileReader reader = new FileReader(database)) {
             // banco de dados em json
             Object obj = jsonParser.parse(reader);
@@ -32,7 +32,6 @@ public class Update extends Brownie implements ManipulateData {
                     if (brownieExists) {
                         System.out.println("Entre com o parâmetro a ser editado");
                         updateBrownieInfo((JSONObject) brownieList.get(i), UpdateInput.nextLine());
-                        getInfo();
                         break;
                     } else if (i == brownieList.size() - 1) {
                         throw new ProductDoesNotExistException("Este produto não existe no banco de dados!");
@@ -56,20 +55,29 @@ public class Update extends Brownie implements ManipulateData {
     }
 
     private void updateBrownieInfo(JSONObject brownie, String parameter) {
-        System.out.println("Entre com o novo valor");
         if(Objects.equals(parameter, "Preço final total")) {
+            System.out.println("Entre com o novo valor");
             brownie.put(parameter, UpdateInput.nextLine().replace(".", ","));
+            getInfo();
         }
         else if(Objects.equals(parameter, "Preço")){
+            System.out.println("Entre com o novo valor");
             updatePrice(brownie, parameter);
+            getInfo();
         } else if(Objects.equals(parameter, "Quantidade")) {
+            System.out.println("Entre com o novo valor");
             updateQuantity(brownie, parameter);
+            getInfo();
         }else if(Objects.equals(parameter, "Tipo")){
+            System.out.println("Entre com o novo valor");
             brownie.put(parameter, UpdateInput.nextLine());
+            getInfo();
         }else if(Objects.equals(parameter, "Nome")) {
+            System.out.println("Entre com o novo valor");
             brownie.put(parameter, UpdateInput.nextLine());
+            getInfo();
         }else {
-            System.out.println("Insira uma chave válida!");
+            System.out.println("Insira um parâmetro válido!");
         }
     }
 
