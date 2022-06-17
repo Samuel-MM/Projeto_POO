@@ -10,7 +10,7 @@ public class CreateItem {
     public void createBrownie(){
 
         Scanner scanner = new Scanner(System.in);
-        // trycatch para evitar quebra no codigo caso aja erros
+
         try {
             System.out.println("Entre com as informações do brownie: Nome, preço, tipo, quantidade" +
                     " separando cada uma por enter");

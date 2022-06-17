@@ -30,6 +30,7 @@ public class Delete extends Brownie implements ManipulateData {
                     brownieExists = findItem((JSONObject) brownieList.get(i), brownieName);
                     if (brownieExists) {
                         brownieList.remove(i);
+                        getInfo();
                         break;
                     } else if(i == brownieList.size() - 1){
                         throw new ProductDoesNotExistException("Este produto não existe no banco de dados!");
@@ -62,6 +63,6 @@ public class Delete extends Brownie implements ManipulateData {
     }
 
     public void getInfo(){
-        System.out.println("Você tem certeza que deseja excluir o seguinte produto: " + "-" + "?");
+        System.out.println("Você deletou  com sucesso!");
     }
 }
