@@ -32,6 +32,7 @@ public class Update extends Brownie implements ManipulateData {
                     if (brownieExists) {
                         System.out.println("Entre com o parâmetro a ser editado");
                         updateBrownieInfo((JSONObject) brownieList.get(i), UpdateInput.nextLine());
+                        getInfo();
                         break;
                     } else if (i == brownieList.size() - 1) {
                         throw new ProductDoesNotExistException("Este produto não existe no banco de dados!");
@@ -61,11 +62,14 @@ public class Update extends Brownie implements ManipulateData {
         }
         else if(Objects.equals(parameter, "Preço")){
             updatePrice(brownie, parameter);
-        } else if(Objects.equals(parameter, "Quantidade")){
+        } else if(Objects.equals(parameter, "Quantidade")) {
             updateQuantity(brownie, parameter);
-        }
-        else {
+        }else if(Objects.equals(parameter, "Tipo")){
             brownie.put(parameter, UpdateInput.nextLine());
+        }else if(Objects.equals(parameter, "Nome")) {
+            brownie.put(parameter, UpdateInput.nextLine());
+        }else {
+            System.out.println("Insira uma chave válida!");
         }
     }
 
@@ -81,7 +85,7 @@ public class Update extends Brownie implements ManipulateData {
     }
 
     public void getInfo(){
-        System.out.println("Você tem certeza que deseja excluir o seguinte produto: " + "-" + "?");
+        System.out.println("Você atualizou com sucesso!");
     }
 
     private void updateQuantity(JSONObject brownie, String parameter){

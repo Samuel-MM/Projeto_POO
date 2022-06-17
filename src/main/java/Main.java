@@ -31,9 +31,9 @@ public class Main {
                     break;
                 case "U":
                     Update updateItem = new Update();
-                    Scanner entradaUpdate = new Scanner(System.in);
+                    Scanner productName = new Scanner(System.in);
                     System.out.println("Entre com o nome do produto a ser editado");
-                    updateItem.selectItem(entradaUpdate.nextLine());
+                    updateItem.selectItem(productName.nextLine());
                     break;
                 case "D":
                     System.out.println("Entre com o nome do brownie a ser deletado");
@@ -42,6 +42,8 @@ public class Main {
                     Delete deleteItem = new Delete();
                     deleteItem.selectItem(entrada.nextLine());
                     break;
+                default:
+                    System.out.println("Insira uma opção válida!");
             }
             System.out.println("Deseja realizar outra operação? Caso queira sair digite 'E'");
             userInput = scanner.next();
