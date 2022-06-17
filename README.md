@@ -9,8 +9,8 @@ It was developed to show all OOP concepts learned in C125-L1 classes.
 ## How it Works
 This project allows you to create a product (brownie) and store it in a json file (database),
 read and show a list with all of your products, update each parameter of your product and also delete it.
-It uses a package called json-simple to interact with json file. You can learn a little more about it watching our
-[video](https://drive.google.com/drive/folders/1QP4RrVJNJxIRjOFK8pgfK_NLg4Gg6SXG?usp=sharing).
+This CRUD uses a package called json-simple to interact with json file. You can learn a little more about the project 
+watching our [video](https://drive.google.com/drive/folders/1QP4RrVJNJxIRjOFK8pgfK_NLg4Gg6SXG?usp=sharing).
 ## Implementations
 
 - [x] Class
