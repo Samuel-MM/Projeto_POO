@@ -13,7 +13,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class Create extends Brownie implements ManipulateData {
-
+    //constructor
     public Create(String name, double price, String type, int quantity) {
         this.name = name;
         this.price = price;
@@ -25,7 +25,7 @@ public class Create extends Brownie implements ManipulateData {
     public Create() {
         fileExistPutItem();
     }
-
+    // polimorfismo override
     @Override
     public void getInfo() {
         System.out.println("O seu brownie será criado com os seguintes dados: " + name + " - " + type + " - R$" +
@@ -46,6 +46,7 @@ public class Create extends Brownie implements ManipulateData {
     private void fileExistPutItem() {
         JSONParser jsonParser = new JSONParser();
         JSONObject brownieInfo = new JSONObject();
+        // trycatch para evitar quebra no codigo caso aja erros
         try {
             Object obj = jsonParser.parse(new FileReader(database));
             JSONArray brownieArray = (JSONArray) obj;

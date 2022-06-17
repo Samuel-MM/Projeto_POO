@@ -16,7 +16,7 @@ public class Read extends Brownie {
     public void readBrownie(){
 
         JSONParser jsonParser = new JSONParser();
-
+        // trycatch para evitar quebra no codigo caso aja erros
         try (FileReader reader = new FileReader(database)) {
 
             Object obj = jsonParser.parse(reader);
@@ -44,7 +44,7 @@ public class Read extends Brownie {
         }
         System.out.println();
     }
-
+    // polimorfismo override
     @Override
     public double getFinalPriceUnitary() {
         return 0;

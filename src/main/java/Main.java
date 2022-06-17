@@ -18,7 +18,7 @@ public class Main {
         System.out.println("Selecione a operação: 'D' para Deletar um item");
 
         String userInput = scanner.next();
-
+        
         while(!Objects.equals(userInput, "E")) {
             switch (userInput.toUpperCase()) {
                 case "C":
@@ -46,6 +46,8 @@ public class Main {
             System.out.println("Deseja realizar outra operação? Caso queira sair digite 'E'");
             userInput = scanner.next();
         }
+        // close the scanner
+        scanner.close();
 
     }
 }

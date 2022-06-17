@@ -19,9 +19,9 @@ public class Update extends Brownie implements ManipulateData {
     public void selectItem(String brownieName){
 
         JSONParser jsonParser = new JSONParser();
-
+        // trycatch para evitar quebra no codigo caso aja erros
         try (FileReader reader = new FileReader(database)) {
-
+            // banco de dados em json
             Object obj = jsonParser.parse(reader);
 
             JSONArray brownieList = (JSONArray) obj;
@@ -31,7 +31,7 @@ public class Update extends Brownie implements ManipulateData {
                     brownieExists = findItem((JSONObject) brownieList.get(i), brownieName);
                     if (brownieExists) {
                         System.out.println("Entre com o parâmetro a ser editado");
-                        updateBrownieInfo((JSONObject) brownieList.get(i), entradaUpdate.nextLine());
+                        updateBrownieInfo((JSONObject) brownieList.get(i), UpdateInput.nextLine());
                         break;
                     } else if (i == brownieList.size() - 1) {
                         throw new ProductDoesNotExistException("Este produto não existe no banco de dados!");
@@ -57,7 +57,7 @@ public class Update extends Brownie implements ManipulateData {
     private void updateBrownieInfo(JSONObject brownie, String parameter) {
         System.out.println("Entre com o novo valor");
         if(Objects.equals(parameter, "Preço final total")) {
-            brownie.put(parameter, entradaUpdate.nextLine().replace(".", ","));
+            brownie.put(parameter, UpdateInput.nextLine().replace(".", ","));
         }
         else if(Objects.equals(parameter, "Preço")){
             updatePrice(brownie, parameter);
@@ -65,7 +65,7 @@ public class Update extends Brownie implements ManipulateData {
             updateQuantity(brownie, parameter);
         }
         else {
-            brownie.put(parameter, entradaUpdate.nextLine());
+            brownie.put(parameter, UpdateInput.nextLine());
         }
     }
 
@@ -85,14 +85,14 @@ public class Update extends Brownie implements ManipulateData {
     }
 
     private void updateQuantity(JSONObject brownie, String parameter){
-        quantity = Integer.parseInt(entradaUpdate.nextLine().replace(",", "."));
+        quantity = Integer.parseInt(UpdateInput.nextLine().replace(",", "."));
         price = Double.parseDouble(brownie.get("Preço").toString().replace(",", "."));
         brownie.put(parameter, Integer.toString(quantity));
         brownie.put("Preço final total", Double.toString(getFinalPriceTotal()).replace(".", ","));
     }
 
     private void updatePrice(JSONObject brownie, String parameter){
-        price = Double.parseDouble(entradaUpdate.nextLine().replace(".", ",").replace(",", "."));
+        price = Double.parseDouble(UpdateInput.nextLine().replace(".", ",").replace(",", "."));
         quantity = Integer.parseInt(brownie.get("Quantidade").toString().replace(",", "."));
         brownie.put(parameter, Double.toString(price).replace(".", ","));
         brownie.put("Preço final unidade", Double.toString(getFinalPriceUnitary()).replace(".", ","));

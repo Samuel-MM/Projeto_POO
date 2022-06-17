@@ -14,12 +14,12 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class Delete extends Brownie implements ManipulateData {
-
+    // polimorfismo override
     @Override
     public void selectItem(String brownieName){
 
         JSONParser jsonParser = new JSONParser();
-
+        // trycatch para evitar quebra no codigo caso aja erros
         try (FileReader reader = new FileReader(database)) {
 
             Object obj = jsonParser.parse(reader);
